@@ -22,20 +22,16 @@ class RefreshTokenUserUseCase {
     const generateTokenProvider = new GenerateTokenProvider();
     const token = await generateTokenProvider.execute(refreshToken.userId);
 
-    if (refreshTokenExpired) {
-      await client.refreshToken.deleteMany({
-        where: {
-          userId: refreshToken.userId
-        }
-      });
+    await client.refreshToken.deleteMany({
+      where: {
+        userId: refreshToken.userId
+      }
+    });
 
-      const generateRefreshTokenProvider = new GenerateRefreshToken();
-      const newRefreshToken = await generateRefreshTokenProvider.execute(refreshToken.userId);
+    const generateRefreshTokenProvider = new GenerateRefreshToken();
+    const newRefreshToken = await generateRefreshTokenProvider.execute(refreshToken.userId);
 
-      return {token, refreshToken: newRefreshToken};
-    }
-
-    return { token };
+    return {token, refreshToken: newRefreshToken};
   }
 }
 

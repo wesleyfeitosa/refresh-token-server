@@ -1,0 +1,22 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API auth",
+    "description": "Está é uma API de teste para aprender sobre o funcionamento da técnica de refresh token",
+    "version": "1.0.0",
+    "termsOfService": "http://127.0.0.1:3000/terms/",
+    "contact": {
+      "email": "jwesleydasilva@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3000/v1",
+      "description": "API de desenvolvimento"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ]
+}
