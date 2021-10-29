@@ -23,7 +23,7 @@
     "/users": {
       "post": {
         "tags": [
-          "Usuários"
+          "Autenticação"
         ],
         "summary": "Cria um novo usuário",
         "description": "Cria um novo usuário",
@@ -63,6 +63,50 @@
           }
         }
       }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Realiza o login de um usuário",
+        "description": "Realiza o login de um usuário",
+        "operationId": "loginUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro ao criar usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -74,6 +118,19 @@
             "type": "string",
             "example": "Wesley"
           },
+          "email": {
+            "type": "string",
+            "example": "wesley@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
           "email": {
             "type": "string",
             "example": "wesley@email.com"
@@ -102,6 +159,32 @@
           "password": {
             "type": "string",
             "example": "1234"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "ffc4d94f-d865-4153-8025-8f66a0e27303"
+          },
+          "refreshToken": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "ffc4d94f-d865-4153-8025-8f66a0e27303"
+              },
+              "expiresIn": {
+                "type": "number",
+                "example": "3600"
+              },
+              "userId": {
+                "type": "string",
+                "example": "ffc4d94f-d865-4153-8025-8f66a0e27303"
+              }
+            }
           }
         }
       },

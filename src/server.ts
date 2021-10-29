@@ -7,16 +7,15 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/', (request: Request, response: Response, next: NextFunction) => {
-    const { format } = request.query
-    if (request.method === 'GET' && format === 'json') {
+app.use('/documentation', (request: Request, response: Response, next: NextFunction) => {
+    const { format } = request.query;
+    if (format === 'json') {
         return response.status(200).json(require('./swagger.json'));
     }
     next();
-});
-app.use('/', swaggerUi.serve, swaggerUi.setup(require('./swagger.json')));
+}, swaggerUi.serve, swaggerUi.setup(require('./swagger.json')));
 
-app.use('/v1', router);
+app.use(router);
 
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
     return response.status(400).json({
