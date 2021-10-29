@@ -9,6 +9,7 @@
     "build": "rimraf dist && babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
+    "apply:migrations": "npx prisma migrate deploy",
     "swagger-autogen": "ts-node-dev src/swagger.ts"
   },
   "devDependencies": {
