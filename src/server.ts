@@ -1,10 +1,12 @@
 import 'express-async-errors'; // to handle async errors
 import express, {Request, Response, NextFunction} from 'express';  // to handle http requests
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 import { router } from './routes';  
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 
 app.use('/documentation', (request: Request, response: Response, next: NextFunction) => {

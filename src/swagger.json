@@ -151,6 +151,7 @@
         "summary": "Lista os cursos",
         "description": "Lista os cursos",
         "operationId": "getCourses",
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "Cursos listados com sucesso!",
@@ -301,6 +302,13 @@
             "example": "Usuário não autenticado"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }  
