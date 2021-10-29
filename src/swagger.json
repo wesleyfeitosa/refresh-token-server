@@ -186,9 +186,9 @@
             "type": "string",
             "example": "Wesley"
           },
-          "email": {
+          "username": {
             "type": "string",
-            "example": "wesley@email.com"
+            "example": "wesleyfeitosa"
           },
           "password": {
             "type": "string",
@@ -229,9 +229,9 @@
             "type": "string",
             "example": "Wesley"
           },
-          "email": {
+          "username": {
             "type": "string",
-            "example": "wesley@email.com"
+            "example": "wesleyfeitosa"
           },
           "password": {
             "type": "string",
