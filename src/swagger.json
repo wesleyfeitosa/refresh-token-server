@@ -25,7 +25,7 @@
         "tags": [
           "Autenticação"
         ],
-        "summary": "Cria um novo usuário",
+        "summary": "Cria usuário",
         "description": "Cria um novo usuário",
         "operationId": "createUser",
         "requestBody": {
@@ -66,7 +66,7 @@
         "tags": [
           "Autenticação"
         ],
-        "summary": "Realiza o login de um usuário",
+        "summary": "Login do usuário",
         "description": "Realiza o login de um usuário",
         "operationId": "loginUser",
         "requestBody": {
@@ -107,7 +107,7 @@
         "tags": [
           "Autenticação"
         ],
-        "summary": "Realiza o refresh do token de um usuário",
+        "summary": "Refresh do token",
         "description": "Realiza o refresh do token de um usuário",
         "operationId": "refreshToken",
         "requestBody": {
