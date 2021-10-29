@@ -4,18 +4,18 @@
     "title": "API auth",
     "description": "Está é uma API de teste para aprender sobre o funcionamento da técnica de refresh token",
     "version": "1.0.0",
-    "termsOfService": "https://refresh-token-500.herokuapp.com/v1/terms/",
+    "termsOfService": "https://refresh-token-500.herokuapp.com/terms/",
     "contact": {
       "email": "jwesleydasilva@gmail.com"
     }
   },
   "servers": [
     {
-      "url": "http://127.0.0.1:3000/v1",
+      "url": "http://127.0.0.1:3000",
       "description": "API de desenvolvimento"
     },
     {
-      "url": "https://refresh-token-500.herokuapp.com/v1",
+      "url": "https://refresh-token-500.herokuapp.com",
       "description": "API de produção"
     }
   ],
@@ -43,9 +43,6 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "id": {
-                    "type": "string"
-                  },
                   "$ref": "#/components/schemas/UserResponse"
                 }
               }
@@ -82,25 +79,95 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "Usuário criado com sucesso",
+          "200": {
+            "description": "Usuário logado com sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "id": {
-                    "type": "string"
-                  },
                   "$ref": "#/components/schemas/LoginResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Erro ao criar usuário",
+            "description": "Erro ao criar a sessão do usuário",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/refresh-token": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Realiza o refresh do token de um usuário",
+        "description": "Realiza o refresh do token de um usuário",
+        "operationId": "refreshToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token do usuário recriado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro ao recriar o token de acesso do usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses": {
+      "get": {
+        "tags": [
+          "Cursos"
+        ],
+        "summary": "Lista os cursos",
+        "description": "Lista os cursos",
+        "operationId": "getCourses",
+        "responses": {
+          "200": {
+            "description": "Cursos listados com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CursosResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário não autenticado!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnauthorized"
                 }
               }
             }
@@ -131,13 +198,22 @@
       "UserLogin": {
         "type": "object",
         "properties": {
-          "email": {
+          "username": {
             "type": "string",
-            "example": "wesley@email.com"
+            "example": "wesleyfeitosa"
           },
           "password": {
             "type": "string",
             "example": "1234"
+          }
+        }
+      },
+      "RefreshBody": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "ffc4d94f-d865-4153-8025-8f66a0e27303"
           }
         }
       },
@@ -188,6 +264,22 @@
           }
         }
       },
+      "CursosResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 123
+            },
+            "name": {
+              "type": "string",
+              "example": "Curso de programação"
+            }
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "properties": {
@@ -198,6 +290,15 @@
           "message": {
             "type": "string",
             "example": "Erro interno"
+          }
+        }
+      },
+      "ErrorUnauthorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Usuário não autenticado"
           }
         }
       }
