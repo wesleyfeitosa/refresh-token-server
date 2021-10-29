@@ -4,7 +4,7 @@
     "title": "API auth",
     "description": "Está é uma API de teste para aprender sobre o funcionamento da técnica de refresh token",
     "version": "1.0.0",
-    "termsOfService": "http://127.0.0.1:3000/terms/",
+    "termsOfService": "https://refresh-token-500.herokuapp.com/v1/terms/",
     "contact": {
       "email": "jwesleydasilva@gmail.com"
     }
@@ -13,10 +13,111 @@
     {
       "url": "http://127.0.0.1:3000/v1",
       "description": "API de desenvolvimento"
+    },
+    {
+      "url": "https://refresh-token-500.herokuapp.com/v1",
+      "description": "API de produção"
     }
   ],
-  "schemes": [
-    "https",
-    "http"
-  ]
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Cria um novo usuário",
+        "description": "Cria um novo usuário",
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro ao criar usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Wesley"
+          },
+          "email": {
+            "type": "string",
+            "example": "wesley@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234"
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ffc4d94f-d865-4153-8025-8f66a0e27303"
+          },
+          "name": {
+            "type": "string",
+            "example": "Wesley"
+          },
+          "email": {
+            "type": "string",
+            "example": "wesley@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Erro interno"
+          }
+        }
+      }
+    }
+  }  
 }
